@@ -7,7 +7,9 @@
         "default_title": "tbd"
     },
     "background": {
-        "scripts": ["lib/vendor/URI.js/src/URI.js", "lib/main.js"]
+        "scripts": ["lib/vendor/URI.js/src/URI.js", 
+                    "lib/background/listener.js", 
+                    "lib/background/main.js"]
     },
     "options_page": "lib/options/options.html",
     "permissions" : ["tabs"]
