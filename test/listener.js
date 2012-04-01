@@ -1,4 +1,4 @@
-/*globals chrome, module, ok, strictEqual, test, URI */
+/*globals chrome: true, module, ok, strictEqual, test, URI */
 
 $(document).ready(function() {
     // flags used to see if chrome API methods were called
