@@ -1,12 +1,67 @@
-<h1>affiliate settings</h1>
-<form id='affiliate-settings'>
-    <label>affiliate alias</label>
-    <input type='text' class='alias' name='alias' />
-    <label>affiliate id</label>
-    <input type='text' class='id' name='id' />
-    
-    <button type='submit'>save</button>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel='stylesheet' type='text/css' href='/lib/vendor/bootstrap/css/bootstrap.css' />
+    <link rel='stylesheet' type='text/css' href='/lib/options/options.css' />
+</head>
+<body>
+    <div class='container container-main'>
+        <header class='page-header'>
+            <h1>Philantropist Settings</h1>
+        </header>
+        <section id='affiliates'>
+            <h2>Configure the affiliate you want to use</h2>
+            <div class='row'>
+                <div class='span6'>
+                    <p>In the input field below, enter any URL your favorite affiliate uses to link to Amazon or enter their affiliate ID. Not sure where to find the affiliate ID? It's the value of the <strong>tag</strong> parameter in affiliate URLs. In the screenshots to the right, the affiliate ID would be <strong>philantropist</strong>.</p>
+                    <form class='form-inline'>
+                        <input type='text' placeholder='An Affiliate Link or the Affliate ID' class='input-xlarge' name='affiliate-id'>
+                        <button type='submit' class='btn btn-primary'>Save Affiliate</button>
+                    </form> 
+                </div>
+                <div class='span6'>
+                    <img src='/assets/affiliate_id_example.png' class='pull-right' />
+                    <img src='/assets/affiliate_id_highlighted_example.png' class='pull-right'/>
+                </div>
+            </div>
+        </section>
+        <div class='push'></div> 
+    </div>
+        <footer class='container'>
+            <p>Philantropist is an open-source project hosted on <a href='https://github.com/jharding/philanthropist'>GitHub</a>. It's licenced under the <a href='http://www.opensource.org/licenses/mit-license.php'>MIT License</a>.</p>
+            <p>Have a feature you'd like to see implemented or a bug to report? Contact <a href='https://twitter.com/#!/JakeHarding'>@JakeHarding</a> or <a href='https://github.com/jharding/philanthropist/issues'>open an issue on GitHub</a>.</p>
+        </footer>
 
-<script src='/lib/vendor/jquery/jquery-1.7.2.js'></script>
-<script src='/lib/options/options.js'></script>
+    <!-- ICanHaz templates -->
+    <script id='no-affiliate-alert' type='text/html'>
+        <div class='alert'>
+            <span><strong>Hey this is important!</strong> You haven't told Philantropist which affiliate you want to use. Until you do this, Philantropist is useless.</span> 
+        </div>
+    </script>
+
+    <script id='current-configuration-alert' type='text/html'>
+        <div class='alert alert-info'>
+            <span><strong>Welcome back!</strong> Based on your current settings, Philantropist is configured to use the following affiliate ID: <strong>{{ affiliateId }}</strong></span> 
+        </div>
+    </script>
+
+    <script id='success-alert' type='text/html'>
+        <div class='alert alert-success'>
+            <span><strong>Good news!</strong> Your settings have been saved. Philantropist is now configured to use the following affiliate ID: <strong>{{ affiliateId }}</strong></span> 
+        </div>
+    </script>
+
+    <script id='cannot-find-affiliate-id-alert' type='text/html'>
+        <div class='alert'>
+            <span><strong>Are you sure that was an affiliate URL?</strong> The affiliate ID couldn't be found in the URL you provided.</span> 
+        </div>
+    </script>
+    
+    <!-- external javascript files -->
+    <script src='/lib/vendor/jquery/jquery-1.7.2.js'></script>
+    <script src='/lib/vendor/bootstrap/js/bootstrap.js'></script>
+    <script src='/lib/vendor/URI.js/src/URI.js'></script>
+    <script src='/lib/vendor/ICanHaz.js/ICanHaz.js'></script>
+    <script src='/lib/options/options.js'></script>
+</body>
+</html>
