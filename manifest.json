@@ -4,7 +4,7 @@
     "manifest_version": 2,
     "page_action": {
         "default_icon": "assets/icon.png",
-        "default_title": "tbd"
+        "default_title": "Philanthropist"
     },
     "background": {
         "scripts": ["lib/vendor/URI.js/src/URI.js", 
