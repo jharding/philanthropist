@@ -2,8 +2,14 @@
     "name": "Philanthropist",
     "version": "0.1.0",
     "manifest_version": 2,
+    "description": "Affiliated Amazon shopping made easy",
+    "icons": {
+        "16": "icon16.png",
+        "48": "icon48.png",
+        "128": "icon128.png"
+    },
     "page_action": {
-        "default_icon": "assets/icon.png",
+        "default_icon": "assets/icon19.png",
         "default_title": "Philanthropist"
     },
     "background": {
