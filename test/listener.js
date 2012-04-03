@@ -1,32 +1,68 @@
 /*globals chrome: true, module, ok, strictEqual, test, URI */
 
-$(document).ready(function() {
-    // flags used to see if chrome API methods were called
-    var tabUpdated = null;
-    var pageActionShown = null;
-    var iconDisplayed = null;
-    var redirectUrl = null;
-    var iconPath = null;
+(function() {
+    var _sessionManager = null;
 
-    // stubbing out chrome API
-    chrome = {};
-    chrome.pageAction = {};
-    chrome.pageAction.show = function() {
-        pageActionShown = true;
-    };
-    chrome.pageAction.setIcon = function(options) {
-        iconDisplayed = true;
-        iconPath = options.path; 
-    };
-    chrome.tabs = {};
-    chrome.tabs.update = function(tabId, options) {
-        tabUpdated = true;
-        redirectUrl = options.url;
+    // stubs out the chrome api methods used by listener.js
+    var stubChromeAPI = function() {
+        chrome = {};
+        chrome.pageAction = {};
+        chrome.pageAction.show = function() {
+            chrome.pageAction.show.called = true;
+        };
+        chrome.pageAction.show.called = false;
+
+        chrome.pageAction.setIcon = function(options) {
+            chrome.pageAction.setIcon.called = true;
+            chrome.pageAction.setIcon.path = options.path;
+        };
+        chrome.pageAction.setIcon.called = false;
+        chrome.pageAction.setIcon.path = null;
+
+
+        chrome.tabs = {};
+        chrome.tabs.update = function(tabId, options) {
+            chrome.tabs.update.called = true;
+            chrome.tabs.update.url = options.url;
+        };
+        chrome.tabs.update.called = false;
+        chrome.tabs.update.url = null;
     };
 
-    // default values to be used throughout the tests
+    var stubSessionManager = function() {
+        // saving reference to session manager
+        _sessionManager = philanthropist.sessionManager;
+
+        philanthropist.sessionManager = {};
+        philanthropist.sessionManager.isCurrentSessionAffiliated = function(callback) {
+           var sessionId = philanthropist.sessionManager.sessionId;
+           var isAffiliated = philanthropist.sessionManager.isAffiliated;
+           callback(sessionId, isAffiliated);
+        };
+
+        philanthropist.sessionManager.affiliateSession = function() {};
+    };
+
+    var unstubSessionManager = function() {
+        philanthropist.sessionManager = _sessionManager;
+    };
+
+    var constants = {
+        urls: {
+            google: 'https://www.google.com/',
+            amazon: 'https://www.amazon.com/',
+            affiliatedAmazon: 'https://www.amazon.com/?tag=default' 
+        },
+        // needs to be kept in sync with values from
+        // lib/background/listener.js
+        iconPaths: {
+            configured: '/assets/green.png',
+            notConfigured: '/assets/red.png'
+        }
+    };
+
     var defaults = {
-        affiliateId: 'default',
+        affiliateId: 'affiliateId',
         tabId: 1,
         changeInfo: {
             status: 'loading' 
@@ -34,81 +70,81 @@ $(document).ready(function() {
         tab: {}
     };
 
-    var urls = {
-        google: 'https://www.google.com/',
-        amazon: 'https://www.amazon.com/',
-        affiliatedAmazon: 'https://www.amazon.com/?tag=default' 
-    };
+    $(document).ready(function() {
+        // get local reference to listener
+        var listener = window.philanthropist.listener;
+        
+        module('Background Listener', {
+            setup: function() {
+                // need to clear local storage to get clean slate
+                window.localStorage.clear(); 
 
-    var iconPaths = {
-        configured: '/assets/green.png',
-        notConfigured: '/assets/red.png'
-    };
+                stubChromeAPI();
+                stubSessionManager();
+                
+                listener.init();
+            },
+            teardown: function() {
+                unstubSessionManager();
+            }
+        });
 
-    // get local reference to listener
-    var listener = window.philanthropist.listener;
+        test('change info status is not loading', function() {
+            var tab = $.extend(defaults.tab, { url: constants.urls.google }); 
+            var changeInfo = { status: 'complete' };
+            listener.processTabUpdate(constants.tabId, changeInfo, tab);
 
-    module('Background Listener', {
-        setup: function() {
-            // need to clear local storage to get clean slate
-            window.localStorage.clear(); 
+            ok(!chrome.pageAction.show.called);
+            ok(!chrome.tabs.update.called);
+        });
 
-            tabUpdated = false;
-            pageActionShown = false;
-            iconDisplayed = false;
-            redirectUrl = null;
-            iconPath = null;
-        }
-    });
+        test('site other than amazon visisted', function() {
+            var tab = $.extend(defaults.tab, { url: constants.urls.google }); 
+            listener.processTabUpdate(constants.tabId, defaults.changeInfo, tab);
 
-    test('site other than amazon visisted', function() {
-        var tab = $.extend(defaults.tab, { url: urls.google }); 
-        listener.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
-
-        ok(!tabUpdated);
-        ok(!pageActionShown);
-    });
+            ok(!chrome.pageAction.show.called);
+            ok(!chrome.tabs.update.called);
+        });
+        
+        test('amazon visited without affilate configured', function() {
+            var tab = $.extend(defaults.tab, { url: constants.urls.amazon }); 
+            listener.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
+            
+            ok(chrome.pageAction.show.called);
+            ok(!chrome.tabs.update.called);
+            strictEqual(chrome.pageAction.setIcon.path,
+                        constants.iconPaths.notConfigured);
+        });
     
-    test('amazon visited without affilate configured', function() {
-        var tab = $.extend(defaults.tab, { url: urls.amazon }); 
-        listener.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
-        
-        ok(!tabUpdated);
-        ok(pageActionShown);
-        strictEqual(iconPath, iconPaths.notConfigured);
-    });
+        test('amazon visited with affiliate configured and an unaffiliated session', 
+        function() {
+            // configure affiliate
+            window.localStorage.affiliateId = defaults.affiliateId;
+            philanthropist.sessionManager.sessionId = 'sessionId';
+            philanthropist.sessionManager.isAffiliated = false;
 
-    test('amazon visited with affiliate configured (empty cache)', function() {
-        listener.emptyCache();
-        window.localStorage.affiliateId = defaults.affiliateId;
-        
-        var tab = $.extend(defaults.tab, { url: urls.amazon }); 
-        listener.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
+            var tab = $.extend(defaults.tab, { url: constants.urls.amazon }); 
+            listener.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
 
-        var url = new URI(redirectUrl);
-        var parameterMap = url.search(true);
-        var urlAffiliateId = parameterMap.tag;
+            ok(chrome.pageAction.show.called);
+            ok(chrome.tabs.update.called);
+            strictEqual(chrome.pageAction.setIcon.path,
+                        constants.iconPaths.configured);
+        });
+        
+        test('amazon visited with affiliate configured and an affiliated session', 
+        function() {
+            window.localStorage.affiliateId = defaults.affiliateId;
+            philanthropist.sessionManager.sessionId = 'sessionId';
+            philanthropist.sessionManager.isAffiliated = true;
+            
+            var tab = $.extend(defaults.tab, { url: constants.urls.affiliatedAmazon }); 
+            listener.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
 
-        strictEqual(urlAffiliateId, defaults.affiliateId);
-        ok(tabUpdated);
-        ok(pageActionShown);
-        strictEqual(iconPath, iconPaths.configured);
-    });
-
-    test('amazon visited with affiliate configured (primed cache)', function() {
-        window.localStorage.affiliateId = defaults.affiliateId;
-        
-        var tab = $.extend(defaults.tab, { url: urls.affiliatedAmazon }); 
-        listener.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
-        
-        tabUpdated = false;
-        pageActionShown = false;
-        redirectUrl = null;
-        tab = $.extend(defaults.tab, { url: urls.amazon }); 
-        listener.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
-        
-        ok(!tabUpdated);
-        ok(pageActionShown);
-        strictEqual(iconPath, iconPaths.configured);
-    });
-});
+            ok(chrome.pageAction.show.called);
+            ok(!chrome.tabs.update.called);
+            strictEqual(chrome.pageAction.setIcon.path,
+                        constants.iconPaths.configured);
+        });            
+    });            
+})();
