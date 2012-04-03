@@ -14,9 +14,10 @@
     },
     "background": {
         "scripts": ["lib/vendor/URI.js/src/URI.js", 
+                    "lib/background/session_manager.js", 
                     "lib/background/listener.js", 
                     "lib/background/main.js"]
     },
     "options_page": "lib/options/options.html",
-    "permissions" : ["tabs"]
+    "permissions" : ["tabs", "cookies", "http://*.amazon.com/*"]
 }
