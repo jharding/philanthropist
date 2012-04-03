@@ -3,7 +3,7 @@
 (function() {
     var _sessionManager = null;
 
-    // stubs out the chrome api methods used by listener.js
+    // stubs out the chrome api methods used by tab_manager.js
     var stubChromeAPI = function() {
         chrome = {};
         chrome.pageAction = {};
@@ -54,7 +54,7 @@
             affiliatedAmazon: 'https://www.amazon.com/?tag=default' 
         },
         // needs to be kept in sync with values from
-        // lib/background/listener.js
+        // lib/background/tab_manager.js
         iconPaths: {
             configured: '/assets/green.png',
             notConfigured: '/assets/red.png'
@@ -71,10 +71,10 @@
     };
 
     $(document).ready(function() {
-        // get local reference to listener
-        var listener = window.philanthropist.listener;
+        // get local reference to tabManager
+        var tabManager = window.philanthropist.tabManager;
         
-        module('Background Listener', {
+        module('Background Tab Manager', {
             setup: function() {
                 // need to clear local storage to get clean slate
                 window.localStorage.clear(); 
@@ -82,7 +82,7 @@
                 stubChromeAPI();
                 stubSessionManager();
                 
-                listener.init();
+                tabManager.init();
             },
             teardown: function() {
                 unstubSessionManager();
@@ -92,7 +92,7 @@
         test('change info status is not loading', function() {
             var tab = $.extend(defaults.tab, { url: constants.urls.google }); 
             var changeInfo = { status: 'complete' };
-            listener.processTabUpdate(constants.tabId, changeInfo, tab);
+            tabManager.processTabUpdate(constants.tabId, changeInfo, tab);
 
             ok(!chrome.pageAction.show.called);
             ok(!chrome.tabs.update.called);
@@ -100,7 +100,7 @@
 
         test('site other than amazon visisted', function() {
             var tab = $.extend(defaults.tab, { url: constants.urls.google }); 
-            listener.processTabUpdate(constants.tabId, defaults.changeInfo, tab);
+            tabManager.processTabUpdate(constants.tabId, defaults.changeInfo, tab);
 
             ok(!chrome.pageAction.show.called);
             ok(!chrome.tabs.update.called);
@@ -108,7 +108,7 @@
         
         test('amazon visited without affilate configured', function() {
             var tab = $.extend(defaults.tab, { url: constants.urls.amazon }); 
-            listener.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
+            tabManager.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
             
             ok(chrome.pageAction.show.called);
             ok(!chrome.tabs.update.called);
@@ -124,7 +124,7 @@
             philanthropist.sessionManager.isAffiliated = false;
 
             var tab = $.extend(defaults.tab, { url: constants.urls.amazon }); 
-            listener.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
+            tabManager.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
 
             ok(chrome.pageAction.show.called);
             ok(chrome.tabs.update.called);
@@ -139,7 +139,7 @@
             philanthropist.sessionManager.isAffiliated = true;
             
             var tab = $.extend(defaults.tab, { url: constants.urls.affiliatedAmazon }); 
-            listener.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
+            tabManager.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
 
             ok(chrome.pageAction.show.called);
             ok(!chrome.tabs.update.called);

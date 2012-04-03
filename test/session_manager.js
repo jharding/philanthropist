@@ -16,7 +16,7 @@
     };
 
     $(document).ready(function() {
-        // get local reference to listener
+        // get local reference to sessionManager
         var sessionManager = window.philanthropist.sessionManager;
         sessionManager.init();
 
