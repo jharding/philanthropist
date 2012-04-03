@@ -4,13 +4,19 @@ $(document).ready(function() {
     // flags used to see if chrome API methods were called
     var tabUpdated = null;
     var pageActionShown = null;
+    var iconDisplayed = null;
     var redirectUrl = null;
+    var iconPath = null;
 
     // stubbing out chrome API
     chrome = {};
     chrome.pageAction = {};
     chrome.pageAction.show = function() {
         pageActionShown = true;
+    };
+    chrome.pageAction.setIcon = function(options) {
+        iconDisplayed = true;
+        iconPath = options.path; 
     };
     chrome.tabs = {};
     chrome.tabs.update = function(tabId, options) {
@@ -34,6 +40,11 @@ $(document).ready(function() {
         affiliatedAmazon: 'https://www.amazon.com/?tag=default' 
     };
 
+    var iconPaths = {
+        configured: '/assets/green.png',
+        notConfigured: '/assets/red.png'
+    };
+
     // get local reference to listener
     var listener = window.philanthropist.listener;
 
@@ -44,7 +55,9 @@ $(document).ready(function() {
 
             tabUpdated = false;
             pageActionShown = false;
+            iconDisplayed = false;
             redirectUrl = null;
+            iconPath = null;
         }
     });
 
@@ -62,6 +75,7 @@ $(document).ready(function() {
         
         ok(!tabUpdated);
         ok(pageActionShown);
+        strictEqual(iconPath, iconPaths.notConfigured);
     });
 
     test('amazon visited with affiliate configured (empty cache)', function() {
@@ -78,6 +92,7 @@ $(document).ready(function() {
         strictEqual(urlAffiliateId, defaults.affiliateId);
         ok(tabUpdated);
         ok(pageActionShown);
+        strictEqual(iconPath, iconPaths.configured);
     });
 
     test('amazon visited with affiliate configured (primed cache)', function() {
@@ -94,5 +109,6 @@ $(document).ready(function() {
         
         ok(!tabUpdated);
         ok(pageActionShown);
+        strictEqual(iconPath, iconPaths.configured);
     });
 });
