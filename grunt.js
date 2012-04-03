@@ -18,4 +18,6 @@ module.exports = function(grunt) {
             white: false
         }
     });
+
+    grunt.registerTask('default', 'lint qunit');
 };
