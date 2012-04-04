@@ -14,6 +14,7 @@
     },
     "background": {
         "scripts": ["lib/vendor/URI.js/src/URI.js", 
+                    "lib/background/store.js", 
                     "lib/background/session_manager.js", 
                     "lib/background/tab_manager.js", 
                     "lib/background/main.js"]
