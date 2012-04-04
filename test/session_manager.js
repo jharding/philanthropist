@@ -28,15 +28,15 @@
         });
 
         test('first visit in session', function() {
-            sessionManager.isCurrentSessionAffiliated(function(sessionId, isAffiliated) {
-                ok(!isAffiliated);
+            sessionManager.registerCurrentSession(function(session) {
+                ok(!session.isAffiliated);
             });
         });
 
         test('visit after session is affiliated', function() {
             sessionManager.affiliateSession(sessionId);
-            sessionManager.isCurrentSessionAffiliated(function(sessionId, isAffiliated) {
-                ok(isAffiliated);
+            sessionManager.registerCurrentSession(function(session) {
+                ok(session.isAffiliated);
             });
         });
     });

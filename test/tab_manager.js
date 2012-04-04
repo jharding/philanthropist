@@ -34,10 +34,13 @@
         _sessionManager = philanthropist.sessionManager;
 
         philanthropist.sessionManager = {};
-        philanthropist.sessionManager.isCurrentSessionAffiliated = function(callback) {
-           var sessionId = philanthropist.sessionManager.sessionId;
-           var isAffiliated = philanthropist.sessionManager.isAffiliated;
-           callback(sessionId, isAffiliated);
+        philanthropist.sessionManager.registerCurrentSession = function(callback) {
+            var sessionId = philanthropist.sessionManager.sessionId;
+            var isAffiliated = philanthropist.sessionManager.isAffiliated;
+            callback({
+                id: sessionId,
+                isAffiliated: isAffiliated
+           });
         };
 
         philanthropist.sessionManager.affiliateSession = function() {};
