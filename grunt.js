@@ -4,6 +4,12 @@ module.exports = function(grunt) {
             test: ['test/*.js'],
             lib: ['lib/options/*.js', 'lib/background/*.js']
         },
+        less: {
+            options: {
+                src: ['lib/options/options.less'],
+                dest: 'lib/options/options.css'
+            }
+        },
         qunit: {
             index: ['test/test.html']
         },
@@ -72,6 +78,8 @@ module.exports = function(grunt) {
             white: false
         }
     });
+
+    grunt.loadNpmTasks('grunt-less');
 
     grunt.registerTask('default', 'lint qunit');
 };
