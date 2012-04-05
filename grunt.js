@@ -13,6 +13,10 @@ module.exports = function(grunt) {
         qunit: {
             index: ['test/test.html']
         },
+        watch: {
+            files: 'lib/**/*.less',
+            tasks: 'less'
+        },
         jshint: {
             // enforcing options
             bitwise: true,
