@@ -8,19 +8,24 @@
         <header class='page-header'>
             <h1>Philanthropist Settings</h1>
         </header>
-        <section id='affiliates'>
-            <h2>Configure the affiliate you want to use</h2>
+        <div class='alert-container'></div>
+        <section id='settings'>
             <div class='row'>
-                <div class='span6'>
-                    <p>In the input field below, enter any URL your favorite affiliate uses to link to Amazon or enter their affiliate ID. Not sure where to find the affiliate ID? It's the value of the <strong>tag</strong> parameter in affiliate URLs. In the screenshots to the right, the affiliate ID would be <strong>thfiva-20</strong>.</p>
+                <div class='span7'>
+                    <h2>Configure the associate you want to use</h2>
+                    <p>In the input field below, enter any URL your favorite associate uses to link to Amazon or enter their associate ID. Not sure where to find their associate ID? It's the value of the <strong>tag</strong> parameter in their associate URLs.</p>
                     <form class='form-inline'>
-                        <input type='text' placeholder='An Affiliate Link or the Affliate ID' class='input-xlarge' name='affiliate-id'>
-                        <button type='submit' class='btn btn-primary'>Save Affiliate</button>
+                        <input type='text' placeholder='associate link or associate ID' class='input-xlarge' name='associate-id'>
+                        <button type='submit' class='btn btn-primary'>Save Associate</button>
                     </form> 
                 </div>
-                <div class='span6'>
-                    <img src='/assets/affiliate_id_example.png' class='pull-right' />
-                    <img src='/assets/affiliate_id_highlighted_example.png' class='pull-right'/>
+                <div class='offset1 span4'>
+                    <div class='your-settings alert alert-info'>
+                        <h2>Your Settings</h2>
+                        <ul>
+                            <li class='configured-associate'></li>
+                            <li class='session-associate'></li>
+                    </div>
                 </div>
             </div>
         </section>
@@ -32,28 +37,38 @@
         </footer>
 
     <!-- ICanHaz templates -->
-    <script id='no-affiliate-alert' type='text/html'>
-        <div class='alert'>
-            <span><strong>Hey this is important!</strong> You haven't told Philantropist which affiliate you want to use. Until you do this, Philantropist is useless.</span> 
-        </div>
-    </script>
-
-    <script id='current-configuration-alert' type='text/html'>
-        <div class='alert alert-info'>
-            <span><strong>Welcome back!</strong> Based on your current settings, Philantropist is configured to use the following affiliate ID: <strong>{{ affiliateId }}</strong></span> 
+    <script id='no-associate-alert' type='text/html'>
+        <div class='alert main-alert'>
+            <span><strong>Hey this is important!</strong> You haven't configured an associate yet. You should do this ASAP.</span> 
         </div>
     </script>
 
     <script id='success-alert' type='text/html'>
-        <div class='alert alert-success'>
-            <span><strong>Good news!</strong> Your settings have been saved. Philantropist is now configured to use the following affiliate ID: <strong>{{ affiliateId }}</strong></span> 
+        <div class='alert alert-success main-alert'>
+            <span><strong>Good news!</strong> Your settings have been saved. Philantropist is now configured to use the following associate ID: <strong>{{ associateId }}</strong></span> 
         </div>
     </script>
 
-    <script id='cannot-find-affiliate-id-alert' type='text/html'>
-        <div class='alert'>
-            <span><strong>Are you sure that was an affiliate URL?</strong> The affiliate ID couldn't be found in the URL you provided.</span> 
+    <script id='cannot-find-associate-id-alert' type='text/html'>
+        <div class='alert alert-error main-alert'>
+            <span><strong>Are you sure that was an associate URL?</strong> The associate ID couldn't be found in the URL you provided.</span> 
         </div>
+    </script>
+
+    <script id='no-configured-associate' type='text/html'>
+        <p>You haven't configured an associate yet, you should get on that.</p>
+    </script>
+
+    <script id='configured-associate' type='text/html'>
+        <p>Currently, you have <strong>{{ associateId }}</strong> configured to be use as your default associate.</p>
+    </script>
+    
+    <script id='no-session-associate' type='text/html'>
+        <p>It doesn't seem like you've visited Amazon with Philanthropist installed yet.</p>
+    </script>
+   
+    <script id='session-associate' type='text/html'>
+        <p>Your latest session with Amazon used <strong>{{ associateId }}</strong> as an associate.</p>
     </script>
     
     <!-- external javascript files -->
