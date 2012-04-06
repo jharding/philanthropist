@@ -36,14 +36,14 @@
         philanthropist.sessionManager = {};
         philanthropist.sessionManager.registerCurrentSession = function(callback) {
             var sessionId = philanthropist.sessionManager.sessionId;
-            var isAffiliated = philanthropist.sessionManager.isAffiliated;
+            var isAssociated = philanthropist.sessionManager.isAssociated;
             callback({
                 id: sessionId,
-                isAffiliated: isAffiliated
+                isAssociated: isAssociated
            });
         };
 
-        philanthropist.sessionManager.affiliateSession = function() {};
+        philanthropist.sessionManager.associateSession = function() {};
     };
 
     var unstubSessionManager = function() {
@@ -54,7 +54,7 @@
         urls: {
             google: 'https://www.google.com/',
             amazon: 'https://www.amazon.com/',
-            affiliatedAmazon: 'https://www.amazon.com/?tag=default' 
+            associatedAmazon: 'https://www.amazon.com/?tag=default' 
         },
         // needs to be kept in sync with values from
         // lib/background/tab_manager.js
@@ -65,7 +65,7 @@
     };
 
     var defaults = {
-        affiliateId: 'affiliateId',
+        associateId: 'associateId',
         tabId: 1,
         changeInfo: {
             status: 'loading' 
@@ -119,12 +119,12 @@
                         constants.iconPaths.notConfigured);
         });
     
-        test('amazon visited with affiliate configured and an unaffiliated session', 
+        test('amazon visited with associate configured and an unassociated session', 
         function() {
-            // configure affiliate
-            window.localStorage.affiliateId = defaults.affiliateId;
+            // configure associate
+            window.localStorage.associateId = defaults.associateId;
             philanthropist.sessionManager.sessionId = 'sessionId';
-            philanthropist.sessionManager.isAffiliated = false;
+            philanthropist.sessionManager.isAssociated = false;
 
             var tab = $.extend(defaults.tab, { url: constants.urls.amazon }); 
             tabManager.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
@@ -135,13 +135,13 @@
                         constants.iconPaths.configured);
         });
         
-        test('amazon visited with affiliate configured and an affiliated session', 
+        test('amazon visited with associate configured and an associated session', 
         function() {
-            window.localStorage.affiliateId = defaults.affiliateId;
+            window.localStorage.associateId = defaults.associateId;
             philanthropist.sessionManager.sessionId = 'sessionId';
-            philanthropist.sessionManager.isAffiliated = true;
+            philanthropist.sessionManager.isAssociated = true;
             
-            var tab = $.extend(defaults.tab, { url: constants.urls.affiliatedAmazon }); 
+            var tab = $.extend(defaults.tab, { url: constants.urls.associatedAmazon }); 
             tabManager.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
 
             ok(chrome.pageAction.show.called);

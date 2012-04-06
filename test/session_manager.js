@@ -29,14 +29,14 @@
 
         test('first visit in session', function() {
             sessionManager.registerCurrentSession(function(session) {
-                ok(!session.isAffiliated);
+                ok(!session.isAssociated);
             });
         });
 
-        test('visit after session is affiliated', function() {
-            sessionManager.affiliateSession(sessionId);
+        test('visit after session is associated', function() {
+            sessionManager.associateSession(sessionId);
             sessionManager.registerCurrentSession(function(session) {
-                ok(session.isAffiliated);
+                ok(session.isAssociated);
             });
         });
     });
