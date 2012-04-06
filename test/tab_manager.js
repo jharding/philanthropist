@@ -42,6 +42,8 @@
                 isAssociated: isAssociated
            });
         };
+        philanthropist.sessionManager.sessionId = null;
+        philanthropist.sessionManager.isAssociated = null;
 
         philanthropist.sessionManager.associateSession = function() {};
     };
@@ -59,8 +61,8 @@
         // needs to be kept in sync with values from
         // lib/background/tab_manager.js
         iconPaths: {
-            configured: '/assets/green.png',
-            notConfigured: '/assets/red.png'
+            associatedSession: '/assets/green.png',
+            unassociatedSession: '/assets/red.png'
         }
     };
 
@@ -81,7 +83,8 @@
             setup: function() {
                 // need to clear local storage to get clean slate
                 window.localStorage.clear(); 
-
+                philanthropist.sessionManager.clearSessionMap();
+                
                 stubChromeAPI();
                 stubSessionManager();
                 
@@ -108,46 +111,105 @@
             ok(!chrome.pageAction.show.called);
             ok(!chrome.tabs.update.called);
         });
-        
-        test('amazon visited without affilate configured', function() {
+       
+        // 000
+        test('unassociated url, no conf, unassociated session', function() {
             var tab = $.extend(defaults.tab, { url: constants.urls.amazon }); 
             tabManager.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
             
             ok(chrome.pageAction.show.called);
             ok(!chrome.tabs.update.called);
             strictEqual(chrome.pageAction.setIcon.path,
-                        constants.iconPaths.notConfigured);
+                        constants.iconPaths.unassociatedSession);
         });
-    
-        test('amazon visited with associate configured and an unassociated session', 
-        function() {
-            // configure associate
-            window.localStorage.associateId = defaults.associateId;
-            philanthropist.sessionManager.sessionId = 'sessionId';
-            philanthropist.sessionManager.isAssociated = false;
 
+        // 001
+        test('unassociated url, no conf, associated session', function() {
+            philanthropist.sessionManager.sessionId = 'sessionId';
+            philanthropist.sessionManager.isAssociated = true;
             var tab = $.extend(defaults.tab, { url: constants.urls.amazon }); 
             tabManager.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
+            
+            ok(chrome.pageAction.show.called);
+            ok(!chrome.tabs.update.called);
+            strictEqual(chrome.pageAction.setIcon.path,
+                        constants.iconPaths.associatedSession);
+        }); 
 
+        // 010
+        test('unassociated url, conf, unassociated session', function() {
+            window.localStorage.associateId = defaults.associateId;
+            var tab = $.extend(defaults.tab, { url: constants.urls.amazon }); 
+            tabManager.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
+            
             ok(chrome.pageAction.show.called);
             ok(chrome.tabs.update.called);
             strictEqual(chrome.pageAction.setIcon.path,
-                        constants.iconPaths.configured);
-        });
-        
-        test('amazon visited with associate configured and an associated session', 
-        function() {
+                        constants.iconPaths.unassociatedSession);
+        }); 
+
+        // 011
+        test('unassociated url, conf, associated session', function() {
             window.localStorage.associateId = defaults.associateId;
             philanthropist.sessionManager.sessionId = 'sessionId';
             philanthropist.sessionManager.isAssociated = true;
-            
-            var tab = $.extend(defaults.tab, { url: constants.urls.associatedAmazon }); 
+            var tab = $.extend(defaults.tab, { url: constants.urls.amazon }); 
             tabManager.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
-
+            
             ok(chrome.pageAction.show.called);
             ok(!chrome.tabs.update.called);
             strictEqual(chrome.pageAction.setIcon.path,
-                        constants.iconPaths.configured);
-        });            
+                        constants.iconPaths.associatedSession);
+        }); 
+
+        // 100
+        test('associated url, no conf, unassociated session', function() {
+            var tab = $.extend(defaults.tab, { url: constants.urls.associatedAmazon }); 
+            tabManager.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
+            
+            ok(chrome.pageAction.show.called);
+            ok(!chrome.tabs.update.called);
+            strictEqual(chrome.pageAction.setIcon.path,
+                        constants.iconPaths.associatedSession);
+        }); 
+
+        // 101
+        test('associated url, no conf, associated session', function() {
+            philanthropist.sessionManager.sessionId = 'sessionId';
+            philanthropist.sessionManager.isAssociated = true;
+            var tab = $.extend(defaults.tab, { url: constants.urls.associatdAmazon }); 
+            tabManager.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
+            
+            ok(chrome.pageAction.show.called);
+            ok(!chrome.tabs.update.called);
+            strictEqual(chrome.pageAction.setIcon.path,
+                        constants.iconPaths.associatedSession);
+        }); 
+
+        // 110
+        test('associated url, conf, unassociated session', function() {
+            window.localStorage.associateId = defaults.associateId;
+            var tab = $.extend(defaults.tab, { url: constants.urls.associatdAmazon }); 
+            tabManager.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
+            
+            ok(chrome.pageAction.show.called);
+            ok(!chrome.tabs.update.called);
+            strictEqual(chrome.pageAction.setIcon.path,
+                        constants.iconPaths.associatedSession);
+        }); 
+
+        // 111
+        test('associated url, conf, associated session', function() {
+            window.localStorage.associateId = defaults.associateId;
+            philanthropist.sessionManager.sessionId = 'sessionId';
+            philanthropist.sessionManager.isAssociated = true;
+            var tab = $.extend(defaults.tab, { url: constants.urls.associatdAmazon }); 
+            tabManager.processTabUpdate(defaults.tabId, defaults.changeInfo, tab);
+            
+            ok(chrome.pageAction.show.called);
+            ok(!chrome.tabs.update.called);
+            strictEqual(chrome.pageAction.setIcon.path,
+                        constants.iconPaths.associatedSession);
+        }); 
     });            
 })();
