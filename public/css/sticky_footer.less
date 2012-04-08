@@ -1,0 +1,24 @@
+html, body {
+  height: 100%;
+}
+
+body {
+  @footerHeight: 120px;
+
+  .container-main {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -@footerHeight;
+  }
+
+  footer {
+    box-sizing: border-box;
+    height: @footerHeight;
+    padding: 35px 0;
+    border-top: 1px solid #E5E5E5;
+    p {
+      margin-bottom: 0;
+    }
+  }
+}
