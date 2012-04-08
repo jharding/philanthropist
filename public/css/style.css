@@ -3988,16 +3988,19 @@ a.thumbnail:hover {
 .invisible {
   visibility: hidden;
 }
-.container-main .social-media {
+.container-main header .social-media {
   float: right;
   text-align: center;
 }
-.container-main .social-media .social-media-button {
+.container-main header .social-media .social-media-button {
   display: inline-block;
   *display: inline;
   /* IE7 inline-block hack */
 
   *zoom: 1;
+}
+.container-main header .logo {
+  clear: both;
 }
 html,
 body {
