@@ -133,7 +133,7 @@ textarea {
 body {
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 18px;
   color: #333333;
   background-color: #ffffff;
@@ -323,11 +323,11 @@ a:hover {
 p {
   margin: 0 0 9px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 18px;
 }
 p small {
-  font-size: 11px;
+  font-size: 13px;
   color: #999999;
 }
 .lead {
@@ -528,7 +528,7 @@ code,
 pre {
   padding: 0 3px 2px;
   font-family: Menlo, Monaco, "Courier New", monospace;
-  font-size: 12px;
+  font-size: 14px;
   color: #333333;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
@@ -544,7 +544,7 @@ pre {
   display: block;
   padding: 8.5px;
   margin: 0 0 9px;
-  font-size: 12.025px;
+  font-size: 13.875px;
   line-height: 18px;
   background-color: #f5f5f5;
   border: 1px solid #ccc;
@@ -583,7 +583,7 @@ legend {
   width: 100%;
   padding: 0;
   margin-bottom: 27px;
-  font-size: 19.5px;
+  font-size: 22.5px;
   line-height: 36px;
   color: #333333;
   border: 0;
@@ -598,7 +598,7 @@ input,
 button,
 select,
 textarea {
-  font-size: 13px;
+  font-size: 15px;
   font-weight: normal;
   line-height: 18px;
 }
@@ -622,7 +622,7 @@ select,
   height: 18px;
   padding: 4px;
   margin-bottom: 9px;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 18px;
   color: #555555;
   border: 1px solid #cccccc;
@@ -1967,7 +1967,7 @@ table .span24 {
   *zoom: 1;
   padding: 4px 10px 4px;
   margin-bottom: 0;
-  font-size: 13px;
+  font-size: 15px;
   line-height: 18px;
   color: #333333;
   text-align: center;
@@ -2049,7 +2049,7 @@ table .span24 {
 }
 .btn-large {
   padding: 9px 14px;
-  font-size: 15px;
+  font-size: 17px;
   line-height: normal;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
@@ -2060,7 +2060,7 @@ table .span24 {
 }
 .btn-small {
   padding: 5px 9px;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 16px;
 }
 .btn-small [class^="icon-"] {
@@ -2068,7 +2068,7 @@ table .span24 {
 }
 .btn-mini {
   padding: 2px 6px;
-  font-size: 11px;
+  font-size: 13px;
   line-height: 14px;
 }
 .btn-primary,
@@ -3564,7 +3564,7 @@ a.thumbnail:hover {
 }
 .label {
   padding: 1px 4px 2px;
-  font-size: 10.998px;
+  font-size: 12.69px;
   font-weight: bold;
   line-height: 13px;
   color: #ffffff;
@@ -3612,7 +3612,7 @@ a.thumbnail:hover {
 }
 .badge {
   padding: 1px 9px 2px;
-  font-size: 12.025px;
+  font-size: 13.875px;
   font-weight: bold;
   white-space: nowrap;
   color: #ffffff;
@@ -3992,16 +3992,21 @@ html,
 body {
   height: 100%;
 }
-body .container-main {
+body .sticky-footer-wrapper {
   min-height: 100%;
   height: auto !important;
   height: 100%;
   margin: 0 auto -120px;
 }
-body footer {
-  box-sizing: border-box;
+body .sticky-footer-wrapper .sticky-footer-push {
   height: 120px;
+}
+body footer {
+  height: 120px;
+  width: 940px;
+  margin: 0 auto;
   padding: 35px 0;
+  box-sizing: border-box;
   border-top: 1px solid #E5E5E5;
 }
 body footer p {
