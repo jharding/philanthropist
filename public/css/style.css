@@ -3992,6 +3992,9 @@ a.thumbnail:hover {
 .invisible {
   visibility: hidden;
 }
+body {
+  background: #fcfcfc;
+}
 .container-main .highlight {
   color: #dfac04;
 }
