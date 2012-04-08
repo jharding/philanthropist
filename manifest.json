@@ -13,12 +13,14 @@
         "default_title": "Philanthropist"
     },
     "background": {
-        "scripts": ["lib/vendor/URI.js/src/URI.js", 
+        "scripts": ["lib/vendor/underscore/underscore.js",
+                    "lib/vendor/URI.js/src/URI.js",
+                    "lib/background/logger.js",
                     "lib/background/store.js", 
                     "lib/background/session_manager.js", 
                     "lib/background/tab_manager.js", 
                     "lib/background/main.js"]
     },
     "options_page": "lib/options/options.html",
-    "permissions" : ["tabs", "cookies", "http://*.amazon.com/*"]
+    "permissions" : ["tabs", "cookies", "http://*.amazon.com/*", "https://logs.loggly.com/*"]
 }
