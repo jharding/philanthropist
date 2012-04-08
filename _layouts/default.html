@@ -9,7 +9,17 @@
 </head>
 <body>
   <div class='sticky-footer-wrapper'>
-    <div class='container container-main' id='landing-page'>
+    <div class='container container-main' id='{{ page.container_id }}'>
+      <header>
+        <ul class='social-media'>
+          <li class='social-media-button twitter'>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://jharding.github.com/philanthropist/" data-text="Philanthropist: Associated Amazon shopping made easy.">Tweet</a>
+          </li>
+          <li class='social-media-button facebook'>
+            <iframe src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fjharding.github.com%2Fphilanthropist%2F&amp;send=false&amp;layout=button_count&amp;width=90&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21&amp;appId=395045873846915" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:90px; height:21px;" allowTransparency="true"></iframe>
+          </li>
+        </ul>
+      </header>
       {{ content }}
     </div>
     <div class='sticky-footer-push'></div>
@@ -18,6 +28,9 @@
     <p>Philantropist is an open-source project hosted on <a target='_blank' href='https://github.com/jharding/philanthropist'>GitHub</a>.</p>
   <p>Have a feature you'd like to see implemented or a bug to report? Contact <a target='_blank' href='https://twitter.com/#!/JakeHarding'>@JakeHarding</a> or <a href='https://github.com/jharding/philanthropist/issues'>open an issue on GitHub</a>.</p>
   </footer>
+    <!-- Twitter -->
+    <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
   {% include analytics.html %}
 </body>
 </html>

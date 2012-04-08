@@ -1,0 +1,41 @@
+.container-main {
+  .social-media {
+    float: right;
+    text-align: center;
+    .social-media-button {
+      display: inline-block;
+      .ie7-inline-block();
+    }
+  }
+}
+
+// sticky footer
+html, body {
+  height: 100%;
+}
+
+body {
+  @footerHeight: 120px;
+
+  .sticky-footer-wrapper {
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+    margin: 0 auto -@footerHeight;
+    .sticky-footer-push {
+      height: @footerHeight;
+    }
+  }
+
+  footer {
+    height: @footerHeight;
+    width: 940px;
+    margin: 0 auto;
+    padding: 35px 0;
+    box-sizing: border-box;
+    border-top: 1px solid #E5E5E5;
+    p {
+      margin-bottom: 0;
+    }
+  }
+}
