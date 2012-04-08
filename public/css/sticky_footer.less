@@ -5,17 +5,22 @@ html, body {
 body {
   @footerHeight: 120px;
 
-  .container-main {
+  .sticky-footer-wrapper {
     min-height: 100%;
     height: auto !important;
     height: 100%;
     margin: 0 auto -@footerHeight;
+    .sticky-footer-push {
+      height: @footerHeight;
+    }
   }
 
   footer {
-    box-sizing: border-box;
     height: @footerHeight;
+    width: 940px;
+    margin: 0 auto;
     padding: 35px 0;
+    box-sizing: border-box;
     border-top: 1px solid #E5E5E5;
     p {
       margin-bottom: 0;
