@@ -1,0 +1,6 @@
+exclude: ["grunt.js"]
+auto: true
+  
+analytics:
+  google: 
+    tracking_id: ""
