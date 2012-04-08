@@ -1,5 +1,10 @@
 .container-main {
+  .highlight {
+    color: @gold;
+  }
   header {
+    margin-bottom: 35px;
+    border-bottom: 1px solid @grayLighter;
     .social-media {
       float: right;
       text-align: center;
@@ -11,6 +16,18 @@
     .logo {
       clear: both;
     }
+  }
+  section {
+    margin-bottom: 50px;
+  }
+}
+
+footer {
+  padding: 35px 0;
+  box-sizing: border-box;
+  border-top: 1px solid @grayLighter;
+  p {
+    #font > .shorthand(13px, normal, 18px);
   }
 }
 
@@ -39,13 +56,7 @@ body {
 
   footer {
     height: @footerHeight;
-    width: 940px;
+    #grid .core .span(@gridColumns);
     margin: 0 auto;
-    padding: 35px 0;
-    box-sizing: border-box;
-    border-top: 1px solid #E5E5E5;
-    p {
-      margin-bottom: 0;
-    }
   }
 }
