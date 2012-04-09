@@ -7,8 +7,8 @@ body {
     color: @gold;
   }
   header {
-    margin-bottom: 35px;
-    border-bottom: 1px solid @grayLighter;
+    margin: 10px 0;
+    .clearfix();
     .social-media {
       float: right;
       text-align: center;
@@ -17,8 +17,10 @@ body {
         .ie7-inline-block();
       }
     }
-    .logo {
-      clear: both;
+    .banner {
+      height: 162px;
+      width: 560px;
+      background: url('../img/banner.png') no-repeat;
     }
   }
   section {
@@ -27,9 +29,9 @@ body {
 }
 
 footer {
-  padding: 35px 0;
+  padding: 25px 0;
   box-sizing: border-box;
-  border-top: 1px solid @grayLighter;
+  border-top: 1px solid @grayLight;
   p {
     #font > .shorthand(13px, normal, 18px);
   }

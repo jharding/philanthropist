@@ -3999,8 +3999,16 @@ body {
   color: #dfac04;
 }
 .container-main header {
-  margin-bottom: 35px;
-  border-bottom: 1px solid #eeeeee;
+  margin: 10px 0;
+  *zoom: 1;
+}
+.container-main header:before,
+.container-main header:after {
+  display: table;
+  content: "";
+}
+.container-main header:after {
+  clear: both;
 }
 .container-main header .social-media {
   float: right;
@@ -4013,16 +4021,18 @@ body {
 
   *zoom: 1;
 }
-.container-main header .logo {
-  clear: both;
+.container-main header .banner {
+  height: 162px;
+  width: 560px;
+  background: url('../img/banner.png') no-repeat;
 }
 .container-main section {
   margin-bottom: 50px;
 }
 footer {
-  padding: 35px 0;
+  padding: 25px 0;
   box-sizing: border-box;
-  border-top: 1px solid #eeeeee;
+  border-top: 1px solid #999999;
 }
 footer p {
   font-size: 13px;
