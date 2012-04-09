@@ -1,5 +1,12 @@
 module.exports = function(grunt) {
   grunt.initConfig({
+    exec: {
+      create_prod: {
+        command: 'mkdir prod && cp -r manifest.json lib assets prod && zip -r prod.zip prod',
+        stdout: true,
+        stderr: true
+      }
+    },
     lint: {
       test: ['test/*.js'],
       lib: ['lib/options/*.js', 'lib/background/*.js']
@@ -83,8 +90,9 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-exec');
   grunt.loadNpmTasks('grunt-less');
 
   grunt.registerTask('default', 'lint qunit');
-  grunt.registerTask('prod', 'lint qunit less');
+  grunt.registerTask('prod', 'lint qunit less exec:create_prod');
 };
