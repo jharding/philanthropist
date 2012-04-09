@@ -1,6 +1,6 @@
 {
     "name": "Philanthropist",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "manifest_version": 2,
     "description": "Associated Amazon shopping made easy.",
     "icons": {
@@ -22,5 +22,5 @@
                     "lib/background/main.js"]
     },
     "options_page": "lib/options/options.html",
-    "permissions" : ["tabs", "cookies", "http://*.amazon.com/*", "https://logs.loggly.com/*"]
+    "permissions" : ["tabs", "cookies", "http://*.amazon.com/*"]
 }
