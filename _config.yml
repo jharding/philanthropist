@@ -3,4 +3,4 @@ auto: true
   
 analytics:
   google: 
-    tracking_id: ""
+    tracking_id: "UA-30514629-1"
