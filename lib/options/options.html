@@ -1,84 +1,109 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <link rel='stylesheet' type='text/css' href='/lib/options/options.css' />
+  <meta charset='utf-8'>
+  
+  <title>Philanthropist Settings</title>
+
+  <link rel='stylesheet' type='text/css' href='/lib/options/options.css' />
 </head>
 <body>
+  <div class='sticky-footer-wrapper'>
     <div class='container container-main' id='options-page'>
-        <header class='page-header'>
-            <h1>Philanthropist Settings</h1>
-        </header>
-        <div class='alert-container'></div>
-        <section id='settings'>
-            <div class='row'>
-                <div class='span7'>
-                    <h2>Configure the associate you want to use</h2>
-                    <p>In the input field below, enter any URL your favorite associate uses to link to Amazon or enter their associate ID. Not sure where to find their associate ID? It's the value of the <strong>tag</strong> parameter in their associate URLs. You can also go <a target='_blank' href='https://github.com/jharding/philanthropist/wiki/List-of-Associate-IDs'>here</a> to view a list of known associate IDs.</p>
-                    <form class='form-inline'>
-                        <input type='text' placeholder='associate link or associate ID' class='input-xlarge' name='associate-id'>
-                        <button type='submit' class='btn btn-primary'>Save Associate</button>
-                    </form> 
-                </div>
-                <div class='offset1 span4'>
-                    <div class='your-settings alert alert-info'>
-                        <h2>Your Settings</h2>
-                        <ul>
-                            <li class='configured-associate'></li>
-                            <li class='session-associate'></li>
-                    </div>
-                </div>
+      <header>
+        <div class='banner'></div>
+      </header>
+    
+      <div class='alert-container'></div>
+
+      <section id='settings'>
+        <div class='row'>
+          <div class='span7'>
+            <h2>Configure the associate you want to use</h2>
+            <p>In the input field below, enter any URL your favorite associate uses to link to Amazon or enter their associate ID. Not sure where to find their associate ID? It's the value of the <strong>tag</strong> parameter in their associate URLs. You can also go <a target='_blank' href='https://github.com/jharding/philanthropist/wiki/List-of-Associate-IDs'>here</a> to view a list of known associate IDs.</p>
+            <form class='form-inline'>
+              <input type='text' placeholder='associate link or associate ID' class='input-xlarge' name='associate-id'>
+              <button type='submit' class='btn btn-inverse'>Save Associate</button>
+            </form> 
+          </div>
+          <div class='offset1 span4'>
+            <div class='your-settings'>
+              <h2>Current Settings</h2>
+              <ul>
+                <li class='configured-associate'></li>
+                <li class='session-associate'></li>
             </div>
-        </section>
-        <div class='push'></div> 
+          </div>
+        </div>
+      </section>
+
+      <section id='icons-faq'>
+      <h3>When visiting Amazon, pay attention to the Philanthropist icon in the address bar. If you see a green check mark, your session is associated. If you see a red X, your session isn't associated.</h3>
+      <div class='row'>
+        <div class='span6 valid'>
+          <img src='/assets/icon152_valid.png' class='example'/>
+          <h3>Your session is associated.</h3>
+        </div>
+        <div class='span6 invalid'>
+          <img src='/assets/icon152_invalid.png' class='example'/> 
+          <h3>Your session is not associated.</h3>
+        </div>
+      </div>
+
+      </section>
+
+
+      <div class='sticky-footer-push'></div>
     </div>
-        <footer class='container'>
-            <p>Philanthropist is an open-source project hosted on <a target='_blank' href='https://github.com/jharding/philanthropist'>GitHub</a>.</p>
-            <p>Have a feature you'd like to see implemented or a bug to report? Contact <a href='https://twitter.com/#!/JakeHarding'>@JakeHarding</a> or <a target='_blank' href='https://github.com/jharding/philanthropist/issues'>open an issue on GitHub</a>.</p>
-        </footer>
+  </div>
+  <footer class='container'>
+    <p>Philanthropist is an open-source project hosted on <a target='_blank' href='https://github.com/jharding/philanthropist'>GitHub</a>.</p>
+    <p>Have a feature you'd like to see implemented or a bug to report? Contact <a href='https://twitter.com/#!/JakeHarding'>@JakeHarding</a> or <a target='_blank' href='https://github.com/jharding/philanthropist/issues'>open an issue on GitHub</a>.</p>
+  </footer>
 
-    <!-- ICanHaz templates -->
-    <script id='no-associate-alert' type='text/html'>
-        <div class='alert main-alert'>
-            <span><strong>Hey this is important!</strong> You haven't configured an associate yet. You should do this ASAP.</span> 
-        </div>
-    </script>
+  <!-- ICanHaz templates -->
+  <script id='no-associate-alert' type='text/html'>
+      <div class='alert main-alert'>
+          <span><strong>Hey this is important!</strong> You don't have an assoicate configured.</span> 
+      </div>
+  </script>
 
-    <script id='success-alert' type='text/html'>
-        <div class='alert alert-success main-alert'>
-            <span><strong>Good news!</strong> Your settings have been saved. Philantropist is now configured to use the following associate ID: <strong>{{ associateId }}</strong></span> 
-        </div>
-    </script>
+  <script id='success-alert' type='text/html'>
+      <div class='alert alert-success main-alert'>
+          <span><strong>Settings saved!</strong> Philantropist is now configured to use the following associate ID: <strong>{{ associateId }}</strong></span> 
+      </div>
+  </script>
 
-    <script id='cannot-find-associate-id-alert' type='text/html'>
-        <div class='alert alert-error main-alert'>
-            <span><strong>Are you sure that was an associate URL?</strong> The associate ID couldn't be found in the URL you provided.</span> 
-        </div>
-    </script>
+  <script id='cannot-find-associate-id-alert' type='text/html'>
+      <div class='alert alert-error main-alert'>
+          <span><strong>Are you sure that was an associate URL?</strong> The associate ID couldn't be found in the URL you provided.</span> 
+      </div>
+  </script>
 
-    <script id='no-configured-associate' type='text/html'>
-        <p>You haven't configured an associate yet, you should get on that.</p>
-    </script>
+  <script id='no-configured-associate' type='text/html'>
+      <p>You haven't configured an associate for Philanthropist to use yet.</p>
+  </script>
 
-    <script id='configured-associate' type='text/html'>
-        <p>Currently, you have <strong>{{ associateId }}</strong> configured to be use as your default associate.</p>
-    </script>
-    
-    <script id='no-session-associate' type='text/html'>
-        <p>It doesn't seem like you've visited Amazon with Philanthropist installed yet.</p>
-    </script>
-   
-    <script id='session-associate' type='text/html'>
-        <p>Your latest session with Amazon used <strong>{{ associateId }}</strong> as an associate.</p>
-    </script>
-    
-    <!-- external javascript files -->
-    <script src='/lib/vendor/jquery/jquery-1.7.2.js'></script>
-    <script src='/lib/vendor/underscore/underscore.js'></script>
-    <script src='/lib/vendor/backbone/backbone.js'></script>
-    <script src='/lib/vendor/bootstrap/js/bootstrap.js'></script>
-    <script src='/lib/vendor/URI.js/src/URI.js'></script>
-    <script src='/lib/vendor/ICanHaz.js/ICanHaz.js'></script>
-    <script src='/lib/options/options.js'></script>
-    <script src='/lib/options/options_view.js'></script>
+  <script id='configured-associate' type='text/html'>
+      <p>Currently, you have <strong>{{ associateId }}</strong> configured to be used as your default associate.</p>
+  </script>
+  
+  <script id='no-session-associate' type='text/html'>
+      <p>It doesn't seem like you've visited Amazon with Philanthropist enabled yet.</p>
+  </script>
+ 
+  <script id='session-associate' type='text/html'>
+      <p>Your latest session with Amazon used <strong>{{ associateId }}</strong> as the associate.</p>
+  </script>
+
+  <!-- external javascript files -->
+  <script src='/lib/vendor/jquery/jquery-1.7.2.js'></script>
+  <script src='/lib/vendor/underscore/underscore.js'></script>
+  <script src='/lib/vendor/backbone/backbone.js'></script>
+  <script src='/lib/vendor/bootstrap/js/bootstrap.js'></script>
+  <script src='/lib/vendor/URI.js/src/URI.js'></script>
+  <script src='/lib/vendor/ICanHaz.js/ICanHaz.js'></script>
+  <script src='/lib/options/options.js'></script>
+  <script src='/lib/options/options_view.js'></script>
 </body>
 </html>

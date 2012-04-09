@@ -1,17 +1,61 @@
+@import 'font_face.less';
 @import '../vendor/bootstrap/less/bootstrap.less';
 
+body {
+  background: darken(@white, 1%);
+}
 
-#options-page {
-    #settings {
-        .your-settings {
-            h2 {
-                text-align: center;
-            }
-            .placeholder {
-                font-weight: bold;
-            }
-        }
+.container-main {
+  header {
+    margin: 10px 0;
+    .banner {
+      height: 162px;
+      width: 560px;
+      background: url('/assets/banner.png') no-repeat;
     }
+  }
+  .alert-container {
+    height: 60px;
+    box-sizing: border-box;
+    .alert {
+      margin-bottom: 0;
+    }
+  }
+  section {
+    margin-bottom: 50px;
+  }
+  #settings {
+    .your-settings {
+      h2 {
+        text-align: center;
+      }
+      .placeholder {
+        font-weight: bold;
+      }
+    }
+  }
+  #icons-faq {
+    h3 {
+      margin-bottom: 15px;
+    }
+    .valid, .invalid {
+      text-align: center;
+      .example {
+        display: inline-block;
+        height: 152px;
+        width: 152px;
+      }
+    }
+  }
+}
+
+footer {
+  padding: 25px 0;
+  box-sizing: border-box;
+  border-top: 1px solid @grayLight;
+  p {
+    #font > .shorthand(13px, normal, 18px);
+  }
 }
 
 // force vertical scrollbar
@@ -21,27 +65,25 @@ html {
 
 // sticky footer
 html, body {
-    height: 100%;
+  height: 100%;
 }
 
-.container-main {
+body {
+  @footerHeight: 120px;
+
+  .sticky-footer-wrapper {
     min-height: 100%;
     height: auto !important;
     height: 100%;
-    margin: 0 auto -120px;
-}
-
-.push {
-    width: 100%;
-    height: 120px;
-}
-
-footer {
-    box-sizing: border-box;
-    height: 120px;
-    padding: 35px 0;
-    border-top: 1px solid #E5E5E5;
-    p {
-        margin-bottom: 0;
+    margin: 0 auto -@footerHeight;
+    .sticky-footer-push {
+      height: @footerHeight;
     }
+  }
+
+  footer {
+    height: @footerHeight;
+    #grid .core .span(@gridColumns);
+    margin: 0 auto;
+  }
 }
