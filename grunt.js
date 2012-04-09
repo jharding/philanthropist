@@ -86,4 +86,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-less');
 
   grunt.registerTask('default', 'lint qunit');
+  grunt.registerTask('prod', 'lint qunit less');
 };
