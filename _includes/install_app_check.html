@@ -1,0 +1,16 @@
+<script>
+  (function() {
+    if (window.chrome) {
+      document.getElementById('install').style.display = 'block';
+
+      window.displayThankYou = function() {
+        var installLogo = document.getElementById('install-logo');
+        installLogo.onclick = '';
+        installLogo.className = '';
+        
+        var thankYou = 'The Monocle Man thanks you for installing Philanthropist.';
+        document.getElementById('install-text').innerHTML = thankYou;
+      };
+    }
+  })();
+</script>
