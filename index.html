@@ -2,6 +2,7 @@
 layout: default
 title: Philanthropist - Associated Amazon shopping made easy
 container_id: landing-page
+chrome_webstore_url: https://chrome.google.com/webstore/detail/gpkiioplcncneimghhimiicknclmlodp
 ---
 
 <section class='what'>
@@ -20,3 +21,9 @@ container_id: landing-page
   <p>Currently Philanthropist is only available for Chrome. To install it, go to <a target='_blank' href='https://chrome.google.com/webstore/detail/gpkiioplcncneimghhimiicknclmlodp'>Philanthropist's Chrome extension page</a>. If you enjoy the extension, help make Philanthropist more visible by giving it a rating or a review.</p>
   <p>A Firefox extension is in the pipeline. Check back here occasionally for updates.</p>
 </section>
+
+<section id='install'>
+  <div onclick='chrome.webstore.install("{{ page.chrome_webstore_url }}", window.displayThankYou);' id='install-logo' class='clickable'></div>
+  <h4 id='install-text'>Click the Monocle Man to install Philanthropist.</h4>
+</section>
+{% include install_app_check.html %}

@@ -1,2 +1,23 @@
 #landing-page {
+  section {
+    margin-bottom: 50px;
+  }
+  #install {
+    display: none;
+    text-align: center;
+    #install-logo {
+      display: inline-block;
+      .ie7-inline-block();
+      height: 151px;
+      width: 96px;
+      background: url('../img/logo.png') no-repeat;
+      &.clickable {
+        cursor: pointer;
+        &:active {
+          position: relative;
+          top: 1px;
+        }
+      }
+    }
+  }
 }
