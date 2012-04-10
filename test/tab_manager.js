@@ -61,8 +61,8 @@
         // needs to be kept in sync with values from
         // lib/background/tab_manager.js
         iconPaths: {
-            associatedSession: '/assets/icon16_valid.png',
-            unassociatedSession: '/assets/icon16_invalid.png'
+            associatedSession: '/assets/green_tophat16.png',
+            unassociatedSession: '/assets/red_tophat16.png'
         }
     };
 
