@@ -6,7 +6,10 @@
   <title>{{ page.title }}</title>
   <link rel='shortcut icon' href='public/img/favicon.ico' type='image/x-icon'>
   <link rel='stylesheet' href='public/css/style.css'>
-  <link rel="chrome-webstore-item" href="https://chrome.google.com/webstore/detail/gpkiioplcncneimghhimiicknclmlodp">
+  
+  {% if page.chrome_webstore_url %}
+    <link rel='chrome-webstore-item' href='{{ page.chrome_webstore_url }}'>
+  {% endif %}
 </head>
 <body>
   <div class='sticky-footer-wrapper'>
