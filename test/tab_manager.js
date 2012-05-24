@@ -1,4 +1,4 @@
-/*globals chrome: true, module, ok, strictEqual, test, URI */
+/*globals chrome: true, module, ok, philanthropist, strictEqual, test, URI */
 
 (function() {
     var _sessionManager = null;
