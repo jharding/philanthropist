@@ -2,3 +2,5 @@
 *.swp
 options.css
 node_modules
+prod/
+prod.zip

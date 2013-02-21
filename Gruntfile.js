@@ -7,14 +7,18 @@ module.exports = function(grunt) {
         stderr: true
       }
     },
-    lint: {
+    jshint: {
       test: ['test/*.js'],
       lib: ['lib/options/*.js', 'lib/background/*.js']
     },
     less: {
-      options: {
-        src: ['lib/options/options.less'],
-        dest: 'lib/options/options.css'
+      development: {
+        options: {
+          paths: ['lib/options'],
+        },
+        files: {
+          'lib/options/options.css': 'lib/options/options.less'
+        }
       }
     },
     qunit: {
@@ -94,8 +98,11 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-exec');
-  grunt.loadNpmTasks('grunt-less');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-less');
+  grunt.loadNpmTasks('grunt-contrib-qunit');
+  grunt.loadNpmTasks('grunt-contrib-watch');
 
-  grunt.registerTask('default', 'lint qunit');
-  grunt.registerTask('prod', 'lint qunit less exec:create_prod');
+  grunt.registerTask('default', ['jshint', 'qunit']);
+  grunt.registerTask('prod', ['jshint', 'qunit', 'less', 'exec:create_prod']);
 };
